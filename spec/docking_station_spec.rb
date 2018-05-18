@@ -1,4 +1,5 @@
 require "docking_station"
+require "pry"
 
 describe DockingStation do
 
@@ -26,6 +27,15 @@ describe DockingStation do
     it "raises an error when there are no bikes available" do
       expect { subject.release_bike }.to raise_error 'No bikes available'
     end
+
+    it "raises an error when trying to release a broken bike" do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+#      binding.pry
+      expect { subject.release_bike }.to raise_error "Can't release bike, it's broken."
+    end
+
   end
 
   describe "#dock" do
@@ -38,7 +48,7 @@ describe DockingStation do
       bike = Bike.new
       bike.report_broken
       subject.dock(bike)
-      expect(subject.release_bike.working?).to be false
+      expect(subject.bikes.last.working?).to be false
      end
   end
 
