@@ -1,15 +1,15 @@
 class Bike
+
+  def initialize
+    @condition = true
+  end
+
   def working?
-    true
-    true
+    @condition
   end
 
-  def dock_bike
-    @docked = true
-  end
-
-  def dock_bike?
-    true
+  def report_broken
+    @condition = false
   end
 
 end
